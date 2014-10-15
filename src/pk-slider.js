@@ -4,11 +4,12 @@ var pk = pk || {};
         var el=opt.element,        
             units=opt.units === undefined ? '' : opt.units,
             listeners=opt.listeners === undefined ? {} : opt.listeners,
-            inputValue=opt.value || 0,
             min=opt.min || 0,
             max=opt.max || 100,
             axis = opt.axis,
             range=Math.abs(max-min),
+            inputValue=opt.value || el.getAttribute('value') || 0,
+            inputDisabled=(opt.disabled || el.getAttribute('disabled')) ? 'disabled' : '',            
             inputName=opt.name || el.getAttribute('name') || 'pk-slider-'+pk.getRand(1,999),
             inputTabIndex=opt.tabindex || el.getAttribute('tabindex') || 0; 
         
@@ -16,8 +17,8 @@ var pk = pk || {};
           axis="x";
         }
         
-        var tpl = "<div class='pk-slider pk-slider-"+axis+"' tabindex='"+inputTabIndex+"'>\
-            <input type='text' name='"+inputName+"' value='"+inputValue+"'/>\
+        var tpl = "<div class='pk-slider pk-slider-"+axis+" "+(inputDisabled ? 'pk-disabled' : '')+"' tabindex='"+inputTabIndex+"'>\
+            <input type='text' name='"+inputName+"' "+inputDisabled+" value='"+inputValue+"'/>\
             <div class='pk-slider-bar'>\
                 <span class='pk-slider-value'></span><span class='pk-slider-units'></span>\
             </div>\
@@ -38,6 +39,7 @@ var pk = pk || {};
             move:false,
             listeners:{
                 dragging:function(el,e){
+                    if(obj.disabled()){return false;}
                     var perc=axis==="x" ? (e.dragDist.x + e.dragOffset.x )  / pk.layout(el).width : 1- (e.dragDist.y + e.dragOffset.y )  / pk.layout(el).height;
                     perc = perc < 0 ? 0 : perc;
                     perc = perc > 1 ? 1 : perc;                   
@@ -47,11 +49,13 @@ var pk = pk || {};
                     }
                 },
                 dragstart:function(el,e){
+                    if(obj.disabled()){return false;}
                     if(listeners & listeners.slidestart){
                         listeners.slidestart(el, e);
                     }
                 },                
                 dragend:function(el,e){
+                    if(obj.disabled()){return false;}
                     if(listeners & listeners.slideend){
                         listeners.slideend(el, e);
                     }                    
@@ -59,10 +63,12 @@ var pk = pk || {};
             }
         });
         pk.bindEvent('click', maskEl, function(e){
+           if(obj.disabled()){return false;}
            var perc = axis ==="x" ?((e.clientX - maskEl.getBoundingClientRect().left) / pk.layout(el).width) : 1- ((e.clientY - maskEl.getBoundingClientRect().top) / pk.layout(el).height);
            obj.val(min+ Math.round(perc*range));
         });
         pk.bindEvent("mousewheel", el, function(e){
+            if(obj.disabled()){return false;}
             var offset=0.1;
             if (e.wheelDelta > 0 || e.detail < 0) {
                 offset = offset * -1;
@@ -71,11 +77,11 @@ var pk = pk || {};
         });        
         var obj={
             0:el,
-            val:function(val){                
-                if(val===undefined){return inputEl.value;}                  
+            val:function(val, force){
+                if(val===undefined || (obj.disabled() && !force)){return inputEl.value;}                  
                 val = val < min ? min : val;
                 val = val > max ? max : val;
-                inputEl.value=val;           
+                inputEl.value=val;                
                 if(axis === "x"){
                     barEl.style.width=(val - min)*100 / range+'%';
                 }else{
@@ -83,9 +89,15 @@ var pk = pk || {};
                 }
                 valueEl.innerHTML=val;
                 unitsEl.innerHTML= units;
+            },
+            disabled:function(val){
+                if(val!==undefined){
+                    pk.toggleClass(el, 'pk-disabled', val);
+                }
+                return pk.attribute(inputEl, 'disabled', val);
             }
         };
-        obj.val(inputValue);
+        obj.val(inputValue, true);
         return obj;
     };
     return pk;
