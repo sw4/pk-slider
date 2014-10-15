@@ -30,9 +30,8 @@ var pk = pk || {};
                 valueEl = barEl.children[0],
                 unitsEl = barEl.children[1];        
 
-        if(listeners){
-            pk.bindListeners(listeners, inputEl);
-        }
+
+        pk.bindListeners(listeners, inputEl);
         pk.draggable({
             element:maskEl,
             contain:{element:el},
