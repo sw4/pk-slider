@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>pk-toggleswitch</title>
+        <title>pk-slider</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">   
         <link href="https://rawgit.com/sw4/pk-base/master/src/pk-base.css" rel="stylesheet">          
-        <link href="https://rawgit.com/sw4/pk-toggleswitch/master/src/pk-toggleswitch.css" rel="stylesheet">          
+        <link href="https://rawgit.com/sw4/pk-draggable/master/src/pk-draggable.css" rel="stylesheet">     
+        <link href="https://rawgit.com/sw4/pk-slider/master/src/pk-slider.css" rel="stylesheet">          
         <style>
             html, body {
                 height: 100%;
@@ -19,9 +20,10 @@
     <body >        
         <input id='example' type='checkbox' />
         <script src="https://rawgit.com/sw4/pk-base/master/src/pk-base.js"></script>  
-        <script src="https://rawgit.com/sw4/pk-toggleswitch/master/src/pk-toggleswitch.js"></script>  
+        <script src="https://rawgit.com/sw4/pk-draggable/master/src/pk-draggable.js"></script>  
+        <script src="https://rawgit.com/sw4/pk-slider/master/src/pk-slider.js"></script>  
         <script>
-            pk.toggleswitch({element:document.getElementById('example'), label:{on:'CLICKED'}});
+            pk.slider({element:document.getElementById('example'), units:'%'});
         </script>
     </body>
 </html>
