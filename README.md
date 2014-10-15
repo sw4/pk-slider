@@ -36,6 +36,7 @@ axis: \\ can be `x` or `y`, determines vertical or horizontal slider
 name: \\ the name to use for the slider input form element (can also be set as attribute on original element)
 units: \\ the units postfix
 value: \\ the starting value (defaults to 0)
+disabled: \\ boolean, whether the toggle is disabled (can also be set as attribute on original element)
 min: \\ minimum value (defaults to 0)
 max: \\ maximum value (defaults to 100)
 tabindex: \\ tabindex value (can also be set as attribute on original element) - defaults to 0
@@ -47,3 +48,7 @@ listeners: \\ object consisting of regular event functions for input elements as
 `slider.val(value)`
 
 Where `slider` is a slider object and value is either blank/null to get the current value, or a numeric value to set it
+
+`slider.disabled(value)`
+
+Where `slider` is a toggleswitch slider and value is either blank/null to get the current state, or a boolean value to set it
