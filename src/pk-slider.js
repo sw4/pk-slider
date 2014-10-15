@@ -57,7 +57,7 @@ var pk = pk || {};
             }
         });
         pk.bindEvent('click', maskEl, function(e){
-            var perc = axis ==="x" ?((e.clientX - maskEl.getBoundingClientRect().left) / pk.layout(el).width) : 1- ((e.clientY - maskEl.getBoundingClientRect().top) / pk.layout(el).height);
+           var perc = axis ==="x" ?((e.clientX - maskEl.getBoundingClientRect().left) / pk.layout(el).width) : 1- ((e.clientY - maskEl.getBoundingClientRect().top) / pk.layout(el).height);
            obj.val(min+ Math.round(perc*range));
         });
         pk.bindEvent("mousewheel", el, function(e){
@@ -74,11 +74,15 @@ var pk = pk || {};
                 val = val < min ? min : val;
                 val = val > max ? max : val;
                 inputEl.value=val;           
-                axis === "x" ? barEl.style.width=(val - min)*100 / range+'%' : barEl.style.height=(val - min)*100 / range+'%'  ;
+                if(axis === "x"){
+                    barEl.style.width=(val - min)*100 / range+'%';
+                }else{
+                    barEl.style.height=(val - min)*100 / range+'%';
+                }
                 valueEl.innerHTML=val;
                 unitsEl.innerHTML= units;
             }
-        }
+        };
         obj.val(inputValue);
         return obj;
     };
