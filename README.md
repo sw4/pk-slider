@@ -9,6 +9,10 @@ Lightweight javascript input slider
 
 #####[Demo](http://sw4.github.io/pk-slider/)
 
+###Features
+
+- HTML form compliant (input value can be submitted like with any other `input` element
+- Mousewheel support
 
 ###Requires
 
@@ -22,7 +26,9 @@ Lightweight javascript input slider
 
 `pk.slider(opt);`
 
-Where opt is an object consisting of:
+Returns a new slider object.
+
+`opt` is an object consisting of:
 
 ```
 element: \\ DOM element to replace with a slider - the elements attributes are carried over
@@ -35,3 +41,9 @@ max: \\ maximum value (defaults to 100)
 tabindex: \\ tabindex value (can also be set as attribute on original element) - defaults to 0
 listeners: \\ object consisting of functions for slidestart, slideend and sliding - passed the originating element and event
 ```
+
+###Methods
+
+`slider.val(value)`
+
+Where `slider` is a slider object and value is either blank/null to get the current value, or a numeric value to set it
