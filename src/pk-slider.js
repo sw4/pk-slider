@@ -3,6 +3,7 @@ var pk = pk || {};
     pk.slider = function (opt) {
         var el=opt.element,        
             units=opt.units === undefined ? '' : opt.units,
+            listeners=opt.listeners === undefined ? {} : opt.listeners,
             inputValue=opt.value || 0,
             min=opt.min || 0,
             max=opt.max || 100,
@@ -35,23 +36,22 @@ var pk = pk || {};
             move:false,
             listeners:{
                 dragging:function(el,e){
-                    var perc=axis==="x" ? (e.dragDist.x + e.dragOffset.x + pk.layout(el).left)  / pk.layout(el).width : 1- (e.dragDist.y + e.dragOffset.y + pk.layout(el).top)  / pk.layout(el).height;
+                    var perc=axis==="x" ? (e.dragDist.x + e.dragOffset.x )  / pk.layout(el).width : 1- (e.dragDist.y + e.dragOffset.y )  / pk.layout(el).height;
                     perc = perc < 0 ? 0 : perc;
-                    perc = perc > 1 ? 1 : perc;
-                    
+                    perc = perc > 1 ? 1 : perc;                   
                     obj.val(min+ Math.round(perc*range));
-                    if(opt.listeners & opt.listeners.sliding){
-                        opt.listeners.sliding(el, e);
+                    if(listeners & listeners.sliding){
+                        listeners.sliding(el, e);
                     }
                 },
                 dragstart:function(el,e){
-                    if(opt.listeners & opt.listeners.slidestart){
-                        opt.listeners.slidestart(el, e);
+                    if(listeners & listeners.slidestart){
+                        listeners.slidestart(el, e);
                     }
                 },                
                 dragend:function(el,e){
-                    if(opt.listeners & opt.listeners.slideend){
-                        opt.listeners.slideend(el, e);
+                    if(listeners & listeners.slideend){
+                        listeners.slideend(el, e);
                     }                    
                 }
             }
