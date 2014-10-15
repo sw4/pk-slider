@@ -31,7 +31,9 @@
     background:#0CC09F;
     white-space: nowrap;
 }
-
+.pk-disabled .pk-slider-bar{
+    background:#c4c4c4;
+}
 .pk-slider-y .pk-slider-mask, .pk-slider-y .pk-slider-bar{
     top:auto;
     bottom:0;
