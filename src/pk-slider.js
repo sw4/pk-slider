@@ -1,0 +1,73 @@
+var pk = pk || {};
+(function (pk) {    
+    pk.slider = function (opt) {
+        var el=opt.element,        
+            units=opt.units === undefined ? '' : opt.units,
+            inputValue=opt.value || 0,
+            min=opt.min || 0,
+            max=opt.max || 100,
+            axis = opt.axis,
+            range=Math.abs(max-min),
+            inputName=opt.name || el.getAttribute('name') || 'pk-slider-'+pk.getRand(1,999),
+            inputTabIndex=opt.tabindex || el.getAttribute('tabindex') || 0; 
+        
+        if(!axis || !(axis.indexOf("x") <0 || axis.indexOf("y") <0)) {
+          axis="x";
+        }
+        
+        var tpl = "<div class='pk-slider pk-slider-"+axis+"' tabindex='"+inputTabIndex+"'>\
+            <input type='text' name='"+inputName+"' value='"+inputValue+"'/>\
+            <div class='pk-slider-bar'>\
+                <span class='pk-slider-value'></span><span class='pk-slider-units'></span>\
+            </div>\
+            <div class='pk-slider-mask'></div>\
+        </div>";
+        el= pk.replaceEl(el, tpl);
+            var maskEl = el.children[2],
+                barEl = el.children[1],
+                inputEl = el.children[0],
+                valueEl = barEl.children[0],
+                unitsEl = barEl.children[1];        
+
+        pk.draggable({
+            element:maskEl,
+            contain:{element:el},
+            move:false,
+            listeners:{
+                dragging:function(el,e){
+                    var perc=axis==="x" ? (e.dragDist.x + e.dragOffset.x + pk.layout(el).left)  / pk.layout(el).width : 1- (e.dragDist.y + e.dragOffset.y + pk.layout(el).top)  / pk.layout(el).height;
+                    perc = perc < 0 ? 0 : perc;
+                    perc = perc > 1 ? 1 : perc;
+                    
+                    obj.val(min+ Math.round(perc*range));
+                }
+            }
+        })
+        pk.bindEvent('click', maskEl, function(e){
+            var perc = axis ==="x" ?((e.clientX - maskEl.getBoundingClientRect().left) / pk.layout(el).width) : 1- ((e.clientY - maskEl.getBoundingClientRect().top) / pk.layout(el).height);
+           obj.val(min+ Math.round(perc*range));
+        });
+        pk.bindEvent("mousewheel", el, function(e){
+            var offset=0.1;
+            if (e.wheelDelta > 0 || e.detail < 0) {
+                offset = offset * -1;
+            }
+            obj.val(range*offset+parseInt(obj.val(),0));            
+        });        
+        var obj={
+            0:el,
+            val:function(val){                
+                if(val===undefined){return inputEl.value;}                  
+                val = val < min ? min : val;
+                val = val > max ? max : val;
+                inputEl.value=val;           
+                axis === "x" ? barEl.style.width=(val - min)*100 / range+'%' : barEl.style.height=(val - min)*100 / range+'%'  ;
+                valueEl.innerHTML=val;
+                unitsEl.innerHTML= units;
+            }
+        }
+        obj.val(inputValue);
+        return obj;
+    };
+    return pk;
+})(pk);
