@@ -1,34 +1,37 @@
-
-pk-toggleswitch
+pk-slider
 ========
 
-[![Build Status](https://travis-ci.org/sw4/pk-toggleswitch.svg?branch=master)](https://travis-ci.org/sw4/pk-toggleswitch)
+[![Build Status](https://travis-ci.org/sw4/pk-slider.svg?branch=master)](https://travis-ci.org/sw4/pk-slider)
 
-Toggleswitch input field in vanilla JS with jQuery and Angular wrappers
+Lightweight javascript input slider
 
 **Licensed under [cc by-sa 3.0](http://creativecommons.org/licenses/by-sa/3.0/) with attribution required**
 
-#####[Demo](http://sw4.github.io/pk-toggleswitch/)
+#####[Demo](http://sw4.github.io/pk-slider/)
 
 
 ###Requires
 
-`pk-base.js` and `pk-base.css`
+- `pk-base.js`
+- `pk-base.css`
+- `pk-draggable.js`
+- `pk-draggable.css`
 
 
 ###Usage
 
+`pk.slider(opt);`
 
-#####Plain Javascript
+Where opt is an object consisting of:
 
-`pk.toggleswitch({element:document.getElementById('yourEl'), label:{on:'Switched ON', off:'Switched OFF'}});`*
-
-*<sup>You can use any means to retrieve a DOM node to pass to `pk.toggleswitch()`</sup>
-
-#####jQuery
-
-Initiate with `$('yourEl').pkToggleswitch();`, having the attributes `label-on` (optional) or `label-off` (optional) on the element.
-
-#####Angular
-
-Simply include `pk-toggleswitch` as an application dependancy, add the attributes `pk-toggleswitch` (required), `label-on` (optional) or `label-off` (optional) on the relevant element and the `pkToggleswitch` directive will automatically apply.
+```javascript
+element: \\ DOM element to replace with a slider - the elements attributes are carried over
+axis: \\ can be `x` or `y`, determines vertical or horizontal slider
+name: \\ the name to use for the slider input form element (can also be set as attribute on original element)
+units: \\ the units postfix
+value: \\ the starting value (defaults to 0)
+min: \\ minimum value (defaults to 0)
+max: \\ maximum value (defaults to 100)
+tabindex: \\ tabindex value (can also be set as attribute on original element) - defaults to 0
+listeners: \\ object consisting of functions for slidestart, slideend and sliding - passed the originating element and event
+```
