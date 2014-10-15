@@ -39,7 +39,7 @@ value: \\ the starting value (defaults to 0)
 min: \\ minimum value (defaults to 0)
 max: \\ maximum value (defaults to 100)
 tabindex: \\ tabindex value (can also be set as attribute on original element) - defaults to 0
-listeners: \\ object consisting of regualr event functions for input elements as well as slidestart, slideend and sliding - passed the originating element and event
+listeners: \\ object consisting of regular event functions for input elements as well as slidestart, slideend and sliding - passed the originating element and event
 ```
 
 ###Methods
