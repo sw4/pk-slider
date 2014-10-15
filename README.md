@@ -24,7 +24,7 @@ Lightweight javascript input slider
 
 Where opt is an object consisting of:
 
-```javascript
+```
 element: \\ DOM element to replace with a slider - the elements attributes are carried over
 axis: \\ can be `x` or `y`, determines vertical or horizontal slider
 name: \\ the name to use for the slider input form element (can also be set as attribute on original element)
