@@ -40,9 +40,22 @@ var pk = pk || {};
                     perc = perc > 1 ? 1 : perc;
                     
                     obj.val(min+ Math.round(perc*range));
+                    if(opt.listeners & opt.listeners.sliding){
+                        opt.listeners.sliding(el, e);
+                    }
+                },
+                dragstart:function(el,e){
+                    if(opt.listeners & opt.listeners.slidestart){
+                        opt.listeners.slidestart(el, e);
+                    }
+                },                
+                dragend:function(el,e){
+                    if(opt.listeners & opt.listeners.slideend){
+                        opt.listeners.slideend(el, e);
+                    }                    
                 }
             }
-        })
+        });
         pk.bindEvent('click', maskEl, function(e){
             var perc = axis ==="x" ?((e.clientX - maskEl.getBoundingClientRect().left) / pk.layout(el).width) : 1- ((e.clientY - maskEl.getBoundingClientRect().top) / pk.layout(el).height);
            obj.val(min+ Math.round(perc*range));
