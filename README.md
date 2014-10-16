@@ -16,8 +16,8 @@ Lightweight javascript input slider
 
 ###Requires
 
-- `pk-base.js`
-- `pk-base.css`
+- `pk-core.js`
+- `pk-core.css`
 - `pk-draggable.js`
 - `pk-draggable.css`
 
